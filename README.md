@@ -138,7 +138,7 @@ import { HMSPrebuilt } from '@100mslive/roomkit-react';
 
 ## Contributing
 
-We welcome external contributors or anyone excited to help improve 100ms SDKs. If you'd like to get involved, check out our [contribution guide](./DEVELOPER.MD), and get started exploring the codebase.
+We welcome external contributors or anyone excited to help improve 100ms SDKs. If you'd like to get involved, check out our [contribution guide](./DEVELOPER.MD), and get started exploring the codebase.  
 
 ## Community & Support
 
