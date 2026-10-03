@@ -1,25 +1,132 @@
 @import url('@100mslive/roomkit-react/index.css');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
 
-html,
-body,
-#root {
-  height: 100%;
+html,body,#root{min-height:100%}
+html,body{margin:0;padding:0}
+body{min-height:100vh;background:#070707;color:#f7f2e8;font-family:'Poppins',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+#root{width:100%;overscroll-behavior-y:none}
+.tl-container{border-radius:.75rem}
+
+/* Existing Prebuilt uses 24px SVG assets. Keep the production shell from
+   inheriting broad/global sizing from host styles. */
+@media (min-width:769px){
+  .prebuilt-container button svg{width:24px!important;height:24px!important;max-width:24px!important;max-height:24px!important;flex:0 0 24px!important}
 }
 
-body {
-  margin: 0;
-  padding: env(safe-area-inset);
+/* Abhishree production shell */
+:root{
+  --ab-bg:#070707;--ab-soft:#101010;--ab-cream:#f7f2e8;--ab-muted:#a9a39a;
+  --ab-gold:#d4af37;--ab-line:rgba(212,175,55,.2)
 }
-
-#root {
-  overscroll-behavior-y: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  margin: 0;
+.prod-shell{
+  position:absolute;inset:0;min-height:100vh;overflow-y:auto;overflow-x:hidden;
+  background:
+    radial-gradient(circle at 78% 12%,rgba(212,175,55,.12),transparent 28%),
+    radial-gradient(circle at 10% 80%,rgba(255,255,255,.035),transparent 22%),
+    linear-gradient(135deg,#050505 0%,#0a0a0a 52%,#050505 100%);
+  color:var(--ab-cream)
 }
-
-.tl-container {
-  border-radius: 0.75rem;
+.prod-shell::before{
+  content:'';position:fixed;inset:0;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")
+}
+.prod-nav{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  padding:22px clamp(22px,5vw,72px);border-bottom:1px solid rgba(255,255,255,.08);
+  background:rgba(7,7,7,.78);backdrop-filter:blur(16px)
+}
+.brand-mark{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;letter-spacing:.28em}
+.brand-sub{margin-top:2px;font-size:9px;letter-spacing:.25em;color:rgba(212,175,55,.78)}
+.nav-actions{display:flex;gap:28px;align-items:center}
+.nav-actions a,.text-button{color:rgba(247,242,232,.66);text-decoration:none;background:none;border:0;font:inherit;cursor:pointer}
+.nav-actions a:hover,.text-button:hover{color:var(--ab-gold)}
+.hero-section{
+  min-height:calc(100vh - 88px);display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);
+  gap:clamp(35px,6vw,90px);align-items:center;padding:80px clamp(22px,8vw,120px) 100px
+}
+.hero-copy{position:relative;z-index:2;max-width:720px}
+.eyebrow{margin:0 0 18px;font-size:11px;font-weight:500;letter-spacing:.33em;text-transform:uppercase;color:rgba(212,175,55,.82)}
+.hero-copy h1,.auth-card h1,.glass-card h2,.about-section h2{
+  margin:0;font-family:'Playfair Display',serif;font-weight:500;line-height:.98
+}
+.hero-copy h1{max-width:850px;font-size:clamp(52px,7vw,102px);letter-spacing:-.025em}
+.hero-lead{max-width:620px;margin:28px 0 0;color:var(--ab-muted);font-size:17px;line-height:1.8}
+.hero-actions,.link-actions,.join-form{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.hero-actions{margin-top:34px}
+.luxury-button,.secondary-button{
+  display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 19px;
+  border-radius:999px;font:inherit;font-size:13px;font-weight:500;text-decoration:none;cursor:pointer;box-sizing:border-box
+}
+.luxury-button{border:1px solid var(--ab-gold);background:var(--ab-gold);color:#17130a;box-shadow:0 10px 26px rgba(212,175,55,.16)}
+.luxury-button:hover{background:#e1c252}
+.secondary-button{border:1px solid rgba(247,242,232,.22);background:rgba(255,255,255,.02);color:var(--ab-cream)}
+.secondary-button:hover{border-color:rgba(212,175,55,.55);color:var(--ab-gold)}
+.inline-button{width:fit-content}
+.hero-panel{position:relative;min-height:620px}
+.fashion-card{
+  position:absolute;overflow:hidden;border:1px solid rgba(212,175,55,.25);background-size:cover;background-position:center;
+  box-shadow:0 35px 90px rgba(0,0,0,.45)
+}
+.card-one{
+  inset:4% 8% 13% 19%;
+  background-image:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.38)),url('https://images.unsplash.com/photo-1594223274512-ad4803739b7c?auto=format&fit=crop&w=1100&q=85')
+}
+.card-two{
+  inset:28% 49% 2% 4%;
+  background-image:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.48)),url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=900&q=85')
+}
+.gold-line{position:absolute;right:0;top:12%;width:1px;height:72%;background:linear-gradient(to bottom,transparent,var(--ab-gold),transparent);opacity:.55}
+.join-section,.about-section,.feature-section{width:min(1180px,calc(100% - 44px));margin:0 auto}
+.join-section{
+  display:grid;grid-template-columns:1fr auto;gap:35px;align-items:end;padding:72px 0;
+  border-top:1px solid var(--ab-line);border-bottom:1px solid var(--ab-line)
+}
+.join-section h2{margin:0;font-family:'Playfair Display',serif;font-size:clamp(34px,4vw,52px);font-weight:500}
+.join-form input,.stack input{
+  width:100%;min-height:48px;padding:0 16px;border:1px solid rgba(247,242,232,.15);border-radius:10px;
+  background:rgba(255,255,255,.035);color:var(--ab-cream);outline:none;font:inherit;box-sizing:border-box
+}
+.join-form input{width:250px}
+.join-form input:focus,.stack input:focus{border-color:rgba(212,175,55,.7);box-shadow:0 0 0 3px rgba(212,175,55,.08)}
+.feature-section{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:0;background:var(--ab-line)}
+.feature-section>div{min-height:230px;padding:34px;background:#080808}
+.feature-section span{font-size:11px;letter-spacing:.2em;color:rgba(212,175,55,.7)}
+.feature-section h3{margin:40px 0 14px;font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500}
+.feature-section p,.about-section .muted,.muted{color:var(--ab-muted);line-height:1.7}
+.about-section{padding:130px 0 150px}
+.about-section h2{max-width:770px;font-size:clamp(44px,6vw,78px)}
+.about-section .muted{max-width:700px;margin-top:28px}
+.admin-grid{
+  width:min(1180px,calc(100% - 44px));min-height:calc(100vh - 88px);margin:0 auto;
+  display:grid;grid-template-columns:1.1fr .9fr;gap:70px;align-items:center;padding:70px 0;box-sizing:border-box
+}
+.glass-card{
+  padding:clamp(26px,4vw,42px);border:1px solid rgba(212,175,55,.18);border-radius:24px;
+  background:rgba(255,255,255,.045);box-shadow:0 30px 90px rgba(0,0,0,.35);backdrop-filter:blur(18px)
+}
+.glass-card h2{font-size:clamp(42px,5vw,62px)}
+.stack{display:grid;gap:14px;margin-top:28px}
+.stack label{display:grid;gap:8px;color:rgba(247,242,232,.66);font-size:12px}
+.status-text{margin:14px 0 0;color:var(--ab-gold);font-size:13px}
+.demo-note{margin:18px 0 0;color:rgba(247,242,232,.38);font-size:11px}
+.auth-shell{display:grid;place-items:center;padding:26px;box-sizing:border-box}
+.auth-shell>.brand-mark{position:absolute;top:34px;left:38px}
+.auth-card{width:min(430px,100%)}
+.auth-card h1{font-size:clamp(42px,7vw,62px)}
+.link-card{margin-top:22px;padding:18px;border-radius:16px;background:rgba(0,0,0,.24);border:1px solid rgba(247,242,232,.09);word-break:break-word}
+.link-card a{display:block;margin:8px 0 16px;color:var(--ab-gold)}
+.small{font-size:11px}
+@media (max-width:900px){
+  .hero-section,.admin-grid,.join-section{grid-template-columns:1fr}
+  .hero-panel{min-height:470px}
+  .feature-section{grid-template-columns:1fr}
+  .join-form input{width:100%}
+}
+@media (max-width:640px){
+  .prod-nav{align-items:flex-start}
+  .nav-actions a:nth-child(1),.nav-actions a:nth-child(2){display:none}
+  .brand-mark{font-size:23px}
+  .hero-section{padding-top:54px}
+  .hero-copy h1{font-size:clamp(46px,15vw,72px)}
+  .hero-panel{min-height:390px}
 }
