@@ -1,3 +1,4 @@
+import React from 'react';
 import { HMSPrebuilt, Diagnostics } from '@100mslive/roomkit-react';
 import { getRoomCodeFromUrl } from './utils';
 
@@ -168,8 +169,6 @@ function LandingPage() {
     </div>
   );
 }
-
-function ReactImport() {}
 
 export default function App() {
   const pathname = window.location.pathname;
