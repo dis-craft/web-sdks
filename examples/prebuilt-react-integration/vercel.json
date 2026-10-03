@@ -1,9 +1,12 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "cd ../.. && yarn install",
+  "buildCommand": "cd ../.. && yarn build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ],
-  "outputDirectory": "dist"
+  ]
 }
