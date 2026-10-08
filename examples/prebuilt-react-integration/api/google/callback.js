@@ -3,8 +3,10 @@ import {
   readOAuthState,
   storeGoogleTokens,
 } from '../../server/googleAuth.js';
+import { requireAdmin } from '../../server/adminAuth.js';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     const { code, state, error } = req.query || {};
     if (error) throw new Error(`Google authorization failed: ${error}`);
