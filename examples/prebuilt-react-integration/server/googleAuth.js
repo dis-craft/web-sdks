@@ -8,6 +8,7 @@ const scopes = [
   'email',
   'https://www.googleapis.com/auth/meetings.space.created',
   'https://www.googleapis.com/auth/meetings.space.settings',
+  'https://www.googleapis.com/auth/calendar.events',
 ];
 
 function required(name) {
