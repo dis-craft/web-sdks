@@ -1,6 +1,8 @@
 import { buildGoogleAuthUrl, createOAuthState, storeOAuthState } from '../../server/googleAuth.js';
+import { requireAdmin } from '../../server/adminAuth.js';
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     const state = createOAuthState();
     storeOAuthState(res, state);
