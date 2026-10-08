@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import { getGoogleAccessToken } from '../../server/googleAuth.js';
 import { createJoinToken } from '../../server/joinLinks.js';
 import { sendWhatsAppClassInvite } from '../../server/whatsapp.js';
+import { requireAdmin } from '../../server/adminAuth.js';
 
 const APP_TIMEZONE = process.env.APP_TIMEZONE || 'Asia/Kolkata';
 
@@ -136,6 +137,7 @@ async function enableAutoRecording(accessToken, meetingCode) {
 }
 
 export default async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed.' });
