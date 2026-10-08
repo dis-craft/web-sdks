@@ -17,15 +17,15 @@ function randomRequestId() {
 function toRfc3339(value) {
   const raw = cleanString(value);
   if (!raw) throw new Error('Class date and time are required.');
-  if (/([zZ]|[+-]\d{2}:?\d{2})$/.test(raw)) return new Date(raw).toISOString();
-  const date = new Date(raw);
-  if (Number.isNaN(date.getTime())) {
-    // datetime-local values are interpreted as academy local time.
-    const withZone = new Date(raw + '+05:30');
-    if (Number.isNaN(withZone.getTime())) throw new Error('Invalid class date and time.');
-    return withZone.toISOString();
+  if (/([zZ]|[+-]\d{2}:?\d{2})$/.test(raw)) {
+    const zoned = new Date(raw);
+    if (Number.isNaN(zoned.getTime())) throw new Error('Invalid class date and time.');
+    return zoned.toISOString();
   }
-  return date.toISOString();
+  // The admin UI uses datetime-local, so interpret it in the academy timezone.
+  const withZone = new Date(raw.length === 16 ? `${raw}:00+05:30` : `${raw}+05:30`);
+  if (Number.isNaN(withZone.getTime())) throw new Error('Invalid class date and time.');
+  return withZone.toISOString();
 }
 
 function formatStartsAt(value) {
